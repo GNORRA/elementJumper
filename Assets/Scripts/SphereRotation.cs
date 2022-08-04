@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public enum State
 {
+    emptyFreezy,
+    emptyLucky,
+    emptyClassic,
+    reload,
     classic,
     freezy,
     luky
@@ -58,7 +62,8 @@ public class SphereRotation : MonoBehaviour
     public int[] LevelStepsNum;
 
 
-    public bool canNextStep;
+    public int canNextStep = 0;
+  
 
     private void Awake()
     {
@@ -68,7 +73,6 @@ public class SphereRotation : MonoBehaviour
     void Start()
     {
 
-        canNextStep = false;
         LevelStepsNum = new int[3];
 
         for (int i = 0; i < LevelStepsNum.Length; i++)
@@ -111,7 +115,8 @@ public class SphereRotation : MonoBehaviour
     {
 
         
-       
+        
+
 
         // string isClassic = PlayerPrefs.GetString("classic");
         chronoToStart -= 1f * Time.deltaTime;
@@ -132,99 +137,92 @@ public class SphereRotation : MonoBehaviour
 
             if (currentState == State.classic && Timer.timer.timeRemaining == 0 && ScoreManager.scoreManager.health > 0)
             {
-                currentState = State.freezy;
+               
                 if (ScoreManager.scoreManager.health >= 6)
                 {
                     //Display Special rating interface
+
+                    currentState = State.emptyFreezy;
+
                     GameMenuManager.gameMenuManager.DisplaySpecialRating();
-
-                    
-                    if (canNextStep)
-                    {
-                        Debug.Log("FREEZY");
-                        Freezy();
-                    }
-
                 }
                 else
                 {
                     //Display standard rating interface
-
-
-                    if (canNextStep)
-                    {
-                       
-                        Freezy();
-                       
-                    }
                 }
-               
-            
-              
+
+
+
 
                 // Elevator.elevator.canMoveToTop = true;
 
             }
+
+            if (canNextStep == 1 && currentState == State.emptyFreezy)
+            {
+                //  currentState = State.freezy;
+                Debug.Log("RUN FREEZY");
+            }
+
+
+
+
             if (currentState == State.freezy && Timer.timer.timeRemaining == 0 && ScoreManager.scoreManager.health > 0)
             {
 
              
-                    currentState = State.luky;
+                   
                     if (ScoreManager.scoreManager.health >= 6)
                     {
-                        //Display Special rating interface
-                        GameMenuManager.gameMenuManager.DisplaySpecialRating();
+                    currentState = State.emptyLucky;
+                    //Display Special rating interface
+                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
 
-                        if (canNextStep)
-                        {
-                            Lucky();
-                        }
-
+                      
                     }
                     else
                     {
                         //Display standard rating interface
 
 
-                        if (canNextStep)
-                        {
-                            Lucky();
-                        }
                     }
 
-
-
-                
+           
+            }
+            if(canNextStep == 1 && currentState == State.emptyLucky)
+            {
+                //  currentState = State.luky;
+                Debug.Log("RUN LUCKY");
             }
                 
             
 
             if (currentState == State.luky && Timer.timer.timeRemaining == 0 && ScoreManager.scoreManager.health > 0)
             {
-                currentState = State.classic;
+               
 
                 if (ScoreManager.scoreManager.health >= 6)
                 {
+                    currentState = State.emptyClassic;
                     //Display Special rating interface
                     GameMenuManager.gameMenuManager.DisplaySpecialRating();
 
-                    if (canNextStep)
-                    {
-                        Classic();
-                    }
-
+                 
                 }
                 else
                 {
                     //Display standard rating interface
 
-                    if (canNextStep)
-                    {
-                        Classic();
-                    }
+                   
                 }
 
 
+            }
+
+            if(canNextStep == 1 && currentState == State.emptyClassic)
+            {
+               // currentState = State.classic;
+                Debug.Log("RUN CLASSIC");
             }
            
 
@@ -281,6 +279,7 @@ public class SphereRotation : MonoBehaviour
      
 
         Timer.timer.timerIsRunning = true;
+
         if (speedVariationCounter >= speedPeriod)
         {
             speedVariationCounter = 0.0f;

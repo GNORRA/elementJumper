@@ -6325,7 +6325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198f22e5a620b4bfb98054f4a679cce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 15
+  timeRemaining: 25
   timerIsRunning: 0
 --- !u!4 &1323386732
 Transform:
@@ -6488,7 +6488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1360070713
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8016,7 +8016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1625638971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8065,7 +8065,7 @@ RectTransform:
   m_GameObject: {fileID: 1652489863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1460063110}
   - {fileID: 1427239826}
@@ -9544,7 +9544,8 @@ MonoBehaviour:
   canEndGame: 0
   canNoAds: 0
   specialPanelBoxAnim: {fileID: 1652489865}
-  specialPanelRating: {fileID: 1625638970}
+  specialPanelRating: {fileID: 1652489863}
+  canContinue: 0
 --- !u!114 &1915460496
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,6 +17,9 @@ public class GameMenuManager : MonoBehaviour
     public Animator specialPanelBoxAnim;
     public GameObject specialPanelRating;
 
+    public bool canContinue;
+
+
 
     private void Start()
     {
@@ -69,15 +72,19 @@ public class GameMenuManager : MonoBehaviour
 
     public void DisplaySpecialRating()
     {
-        specialPanelRating.SetActive(true);
+         specialPanelRating.SetActive(true);
+     
         specialPanelBoxAnim.SetTrigger("PlaySpecialRatingAnim");
 
     }
 
     public void HideSpecialRating()
     {
+
+        Debug.Log("Close");
+        SphereRotation.sphereRotation.canNextStep = 1;
         specialPanelRating.SetActive(false);
-        SphereRotation.sphereRotation.canNextStep = true;
+
     }
 
     private IEnumerator ReviveAnim()
