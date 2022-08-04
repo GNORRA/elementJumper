@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DissolveBlue
+  m_Shader: {fileID: -6465566751694194690, guid: bdbef07426b5f4b6fb5eaf72a10b054d, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_5eb990520fc142ff980fe4002a7af298: 0
+    - Vector1_73263553b49f418d85e383e72eaeccc0: 30
+    - Vector1_92695a3a1ad44853862ee10d8840116f: 0.02
+    m_Colors:
+    - Color_2310d0a6b9024b41a4d4c12abb43b6f2: {r: 0, g: 669.58154, b: 1367.1202, a: 0}
+    - Color_87dc16c95b1d4e5f903227769f69bd06: {r: 0, g: 0.06287715, b: 1, a: 0}
+  m_BuildTextureStacks: []
