@@ -148,6 +148,7 @@ public class SphereRotation : MonoBehaviour
                 }
                 else
                 {
+                    currentState = State.emptyFreezy;
                     //Display standard rating interface
                 }
 
@@ -182,10 +183,11 @@ public class SphereRotation : MonoBehaviour
                     }
                     else
                     {
-                        //Display standard rating interface
+                    //Display standard rating interface
+                    currentState = State.emptyLucky;
 
 
-                    }
+                }
 
            
             }
@@ -212,8 +214,9 @@ public class SphereRotation : MonoBehaviour
                 else
                 {
                     //Display standard rating interface
+                    currentState = State.emptyClassic;
 
-                   
+
                 }
 
 
