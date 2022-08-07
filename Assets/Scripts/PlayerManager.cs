@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     public float buttonTime = 0.0f;
     //    float jumpTime;
-    //    bool jumping;
+     public  bool canJump;
 
    
 
@@ -30,13 +30,18 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-       // GameObject.FindWithTag("BackgroundAmbianceSound").GetComponent<AudioSource>().Play();
-
+        // GameObject.FindWithTag("BackgroundAmbianceSound").GetComponent<AudioSource>().Play();
+        canJump = true;
     }
 
     void Update()
     {
-        Jump();
+
+        if (canJump)
+        {
+            Jump();
+        }
+       
     }
 
 
@@ -74,6 +79,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Jump()
     {
+
+
        // Vector3 tilt = new Vector3(Input.acceleration.x, 0, -Input.acceleration.z);
 
         int fingerCount = 0;

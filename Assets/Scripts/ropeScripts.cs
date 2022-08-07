@@ -28,7 +28,10 @@ public class ropeScripts : MonoBehaviour
         {
            // Debug.Log("Bing");
             ScoreManager.scoreManager.score++;
-            PowerProgress.powerProgress.CurrentValue +=0.025f;
+            PowerProgress.powerProgress.CurrentValue -= 0.005f;
+
+            GameObject.FindWithTag("Player").GetComponent<Rigidbody>().mass += 0.10f;
+
 
         }
 
@@ -36,6 +39,11 @@ public class ropeScripts : MonoBehaviour
         {
            // Debug.Log("Player touched");
             ScoreManager.scoreManager.health--;
+
+            //INCREASE GRAVITY to stimulate tired..
+
+            GameObject.FindWithTag("Player").GetComponent<Rigidbody>().mass += 0.20f;
+
             CameraRotator.cameraRotator.CheckAnimCameraFaile();
             GameObject.FindWithTag("RopeHitSound").GetComponent<AudioSource>().Play();
 

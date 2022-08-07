@@ -46,7 +46,7 @@ public class SphereRotation : MonoBehaviour
     public GameObject robeObject;
 
     [Header("SpeedPeriod")]
-    float speedPeriod = 5f;
+    float speedPeriod = 3f;
 
     [Header("Speed VariationCounter")]
     float speedVariationCounter = 0.0f;
@@ -115,8 +115,6 @@ public class SphereRotation : MonoBehaviour
     {
 
         
-        
-
 
         // string isClassic = PlayerPrefs.GetString("classic");
         chronoToStart -= 1f * Time.deltaTime;
@@ -135,20 +133,20 @@ public class SphereRotation : MonoBehaviour
                
             }
 
-            if (currentState == State.classic && Timer.timer.timeRemaining == 0 && ScoreManager.scoreManager.health > 0)
+            if (currentState == State.classic && Timer.timer.timeRemaining == 0)
             {
                
                 if (ScoreManager.scoreManager.health >= 6)
                 {
                     //Display Special rating interface
 
-                    currentState = State.emptyFreezy;
+                    currentState = State.freezy;
 
                     GameMenuManager.gameMenuManager.DisplaySpecialRating();
                 }
                 else
                 {
-                    currentState = State.emptyFreezy;
+                   // currentState = State.freezy;
                     //Display standard rating interface
                 }
 
@@ -159,106 +157,119 @@ public class SphereRotation : MonoBehaviour
 
             }
 
-            if (canNextStep == 1 && currentState == State.emptyFreezy)
-            {
-                //  currentState = State.freezy;
-                Debug.Log("RUN FREEZY");
-            }
-
-
-
-
-            if (currentState == State.freezy && Timer.timer.timeRemaining == 0 && ScoreManager.scoreManager.health > 0)
-            {
-
-             
-                   
-                    if (ScoreManager.scoreManager.health >= 6)
-                    {
-                    currentState = State.emptyLucky;
-                    //Display Special rating interface
-                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
-
-                      
-                    }
-                    else
-                    {
-                    //Display standard rating interface
-                    currentState = State.emptyLucky;
-
-
-                }
-
-           
-            }
-            if(canNextStep == 1 && currentState == State.emptyLucky)
-            {
-                //  currentState = State.luky;
-                Debug.Log("RUN LUCKY");
-            }
-                
-            
-
-            if (currentState == State.luky && Timer.timer.timeRemaining == 0 && ScoreManager.scoreManager.health > 0)
+            if (canNextStep == 1 && currentState == State.freezy)
             {
                
+               
+                //Debug.Log("RUN FREEZY");
+                Timer.timer.RealoadTimer();
+
+
+             
+            }
+
+            if(currentState == State.freezy && Timer.timer.timeRemaining <= 30 && ScoreManager.scoreManager.health > 0)
+            {
+                Freezy();
+            }
+
+
+            if (currentState == State.freezy && Timer.timer.timeRemaining == 0)
+            {
+
+
 
                 if (ScoreManager.scoreManager.health >= 6)
                 {
-                    currentState = State.emptyClassic;
+                    currentState = State.luky;
                     //Display Special rating interface
                     GameMenuManager.gameMenuManager.DisplaySpecialRating();
 
-                 
+
                 }
                 else
                 {
                     //Display standard rating interface
-                    currentState = State.emptyClassic;
+                    currentState = State.luky;
 
 
                 }
 
 
             }
+                //if(canNextStep == 1 && currentState == State.luky)
+                //{
 
-            if(canNextStep == 1 && currentState == State.emptyClassic)
-            {
-               // currentState = State.classic;
-                Debug.Log("RUN CLASSIC");
+                //  //  currentState = State.luky;
+                //    Timer.timer.RealoadTimer();
+
+
+                //    Lucky();
+                //}
+
+
+
+                //if (currentState == State.emptyLucky  && Timer.timer.timeRemaining == 0)
+                //{
+
+
+                //    if (ScoreManager.scoreManager.health >= 6)
+                //    {
+                //        currentState = State.emptyClassic;
+                //        //Display Special rating interface
+                //        GameMenuManager.gameMenuManager.DisplaySpecialRating();
+
+
+                //    }
+                //    else
+                //    {
+                //        //Display standard rating interface
+                //        currentState = State.emptyClassic;
+
+
+                //    }
+
+
+                //}
+
+                //if(canNextStep == 1 && currentState == State.emptyClassic)
+                //{
+                //   // currentState = State.classic;
+                //    Timer.timer.RealoadTimer();
+                //    Debug.Log("RUN CLASSIC");
+                //    Classic();
+                //}
+
+
+
+
             }
-           
+
+            //if (LoadCharacter.classic && chronoToStart <=1f)
+            //{
+
+            //    Classic();
+            //}
+            //if (LoadCharacter.freezy && chronoToStart <= 1f)
+            //{
+
+            //    Frenzy();
+            //}
+            //if (LoadCharacter.lucky && chronoToStart <= 1f )
+            //{
+
+            //    Lucky();
+            //}
+
 
 
 
         }
-
-        //if (LoadCharacter.classic && chronoToStart <=1f)
-        //{
-
-        //    Classic();
-        //}
-        //if (LoadCharacter.freezy && chronoToStart <= 1f)
-        //{
-
-        //    Frenzy();
-        //}
-        //if (LoadCharacter.lucky && chronoToStart <= 1f )
-        //{
-
-        //    Lucky();
-        //}
-
-
-
-
-    }
     
 
    public void Classic()
     {
-        Timer.timer.timerIsRunning = true;
-
+        
         speedVariationCounter += Time.deltaTime;
        // Debug.Log("SVCounter " + speedVariationCounter);
 
@@ -278,10 +289,11 @@ public class SphereRotation : MonoBehaviour
 
    public void Freezy()
     {
-
-     
-
-        Timer.timer.timerIsRunning = true;
+       
+        Debug.Log("RUN FREEZY");
+       
+         
+        speedVariationCounter += Time.deltaTime;
 
         if (speedVariationCounter >= speedPeriod)
         {
@@ -316,14 +328,19 @@ public class SphereRotation : MonoBehaviour
 
         }
 
+        if(Timer.timer.timeRemaining == 0)
+        {
+            Debug.Log("RUN LUCKY");
+        }
+
     }
 
     public void Lucky()
     {
-        Timer.timer.timerIsRunning = true;
+        Debug.Log("RUN LUCKY");
         if (speedVariationCounter >= speedPeriod)
         {
-            speedVariationCounter = 0.0f;
+            speedVariationCounter = 0.1f;
             angle += .2f;
             // Debug.Log("Angle/Speed " + angle);
         }
@@ -333,7 +350,7 @@ public class SphereRotation : MonoBehaviour
         if (intRobeTimer == robeTimerValue && Completed == false)
         {
             Quaternion spawnRotation = Quaternion.Euler(0, 0, 90);
-            Instantiate(robeObject, new Vector3(-1.8f, 1.5f, 0.56f), spawnRotation);
+            Instantiate(robeObject, new Vector3(-1.8f, 1.94f, 0.56f), spawnRotation);
             Completed = true;
             robeTimer = 0;
         }

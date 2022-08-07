@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     public static Timer timer;
 
 
-    public float timeRemaining = 10;
+    public float timeRemaining;
     public bool timerIsRunning = false;
 
     private void Awake()
@@ -19,23 +19,32 @@ public class Timer : MonoBehaviour
     private void Start()
     {
         // Starts the timer automatically
-        timerIsRunning = false;
+       // timerIsRunning = false;
     }
     void Update()
     {
+       
         if (timerIsRunning)
         {
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
-                Debug.Log(timeRemaining);
+                Debug.Log("New timer : "+timeRemaining);
             }
             else
             {
                 Debug.Log("Time has run out!");
                 timeRemaining = 0;
                 timerIsRunning = false;
+               // RealoadTimer();
             }
         }
+    }
+
+
+   public void RealoadTimer()
+    {
+        timerIsRunning = true;
+        timeRemaining = 7;
     }
 }

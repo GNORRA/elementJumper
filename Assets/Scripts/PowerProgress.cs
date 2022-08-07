@@ -41,11 +41,14 @@ public class PowerProgress : MonoBehaviour
         if (CurrentValue >= slider.maxValue)
         {
 
-            Debug.Log("POWER ACTIVATION");
+            Debug.Log("GAIN POWER");
+            //CurrentValue += 0.125f;
+            //Give air capsul to decrease gravity
+            //
         }
         else
         {
-           // CurrentValue += 0.0023f;
+            CurrentValue += 0.0050f * Time.deltaTime;
         }
     }
 }

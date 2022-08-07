@@ -72,18 +72,19 @@ public class GameMenuManager : MonoBehaviour
 
     public void DisplaySpecialRating()
     {
-         specialPanelRating.SetActive(true);
-     
+        PlayerManager.playerManager.canJump = false;
+        specialPanelRating.SetActive(true);
         specialPanelBoxAnim.SetTrigger("PlaySpecialRatingAnim");
 
     }
 
     public void HideSpecialRating()
     {
-
+        specialPanelRating.SetActive(false);
+        PlayerManager.playerManager.canJump = true;
         Debug.Log("Close");
         SphereRotation.sphereRotation.canNextStep = 1;
-        specialPanelRating.SetActive(false);
+       
 
     }
 
