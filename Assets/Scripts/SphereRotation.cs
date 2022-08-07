@@ -127,22 +127,25 @@ public class SphereRotation : MonoBehaviour
 
             TimerToStart.SetActive(false);
 
-            if (currentState == State.classic && Timer.timer.timeRemaining <= 30 && ScoreManager.scoreManager.health > 0)
+            if (currentState == State.classic && Timer.timer.timeRemaining > 0 && ScoreManager.scoreManager.health > 0)
             {
                  Classic();
-               
+              
             }
 
             if (currentState == State.classic && Timer.timer.timeRemaining == 0)
             {
                
+
                 if (ScoreManager.scoreManager.health >= 6)
                 {
                     //Display Special rating interface
+                    currentState = State.emptyFreezy;
 
-                    currentState = State.freezy;
 
                     GameMenuManager.gameMenuManager.DisplaySpecialRating();
+
+                 
                 }
                 else
                 {
@@ -157,31 +160,29 @@ public class SphereRotation : MonoBehaviour
 
             }
 
-            if (canNextStep == 1 && currentState == State.freezy)
+
+
+            if (canNextStep == 1 && currentState == State.emptyFreezy)
             {
-               
-               
+
+                currentState = State.freezy;
+                canNextStep = 0;
                 //Debug.Log("RUN FREEZY");
                 Timer.timer.RealoadTimer();
 
-
-             
-            }
-
-            if(currentState == State.freezy && Timer.timer.timeRemaining <= 30 && ScoreManager.scoreManager.health > 0)
-            {
                 Freezy();
+
             }
 
 
             if (currentState == State.freezy && Timer.timer.timeRemaining == 0)
             {
 
-
+               
 
                 if (ScoreManager.scoreManager.health >= 6)
                 {
-                    currentState = State.luky;
+                    currentState = State.emptyLucky;
                     //Display Special rating interface
                     GameMenuManager.gameMenuManager.DisplaySpecialRating();
 
@@ -190,81 +191,80 @@ public class SphereRotation : MonoBehaviour
                 else
                 {
                     //Display standard rating interface
-                    currentState = State.luky;
+                  //  currentState = State.luky;
 
 
                 }
 
 
             }
-                //if(canNextStep == 1 && currentState == State.luky)
-                //{
+            if (canNextStep == 1 && currentState == State.emptyLucky)
+            {
 
-                //  //  currentState = State.luky;
-                //    Timer.timer.RealoadTimer();
-
-
-                //    Lucky();
-                //}
-
-
-
-                //if (currentState == State.emptyLucky  && Timer.timer.timeRemaining == 0)
-                //{
-
-
-                //    if (ScoreManager.scoreManager.health >= 6)
-                //    {
-                //        currentState = State.emptyClassic;
-                //        //Display Special rating interface
-                //        GameMenuManager.gameMenuManager.DisplaySpecialRating();
-
-
-                //    }
-                //    else
-                //    {
-                //        //Display standard rating interface
-                //        currentState = State.emptyClassic;
-
-
-                //    }
-
-
-                //}
-
-                //if(canNextStep == 1 && currentState == State.emptyClassic)
-                //{
-                //   // currentState = State.classic;
-                //    Timer.timer.RealoadTimer();
-                //    Debug.Log("RUN CLASSIC");
-                //    Classic();
-                //}
-
-
-
-
+                 currentState = State.luky;
+                Timer.timer.RealoadTimer();
+                canNextStep = 0;
+                // Lucky();
             }
 
-            //if (LoadCharacter.classic && chronoToStart <=1f)
+
+
+            //if (currentState == State.emptyLucky  && Timer.timer.timeRemaining == 0)
             //{
 
+
+            //    if (ScoreManager.scoreManager.health >= 6)
+            //    {
+            //        currentState = State.emptyClassic;
+            //        //Display Special rating interface
+            //        GameMenuManager.gameMenuManager.DisplaySpecialRating();
+
+
+            //    }
+            //    else
+            //    {
+            //        //Display standard rating interface
+            //        currentState = State.emptyClassic;
+
+
+            //    }
+
+
+            //}
+
+            //if(canNextStep == 1 && currentState == State.emptyClassic)
+            //{
+            //   // currentState = State.classic;
+            //    Timer.timer.RealoadTimer();
+            //    Debug.Log("RUN CLASSIC");
             //    Classic();
-            //}
-            //if (LoadCharacter.freezy && chronoToStart <= 1f)
-            //{
-
-            //    Frenzy();
-            //}
-            //if (LoadCharacter.lucky && chronoToStart <= 1f )
-            //{
-
-            //    Lucky();
             //}
 
 
 
 
         }
+
+        //if (LoadCharacter.classic && chronoToStart <=1f)
+        //{
+
+        //    Classic();
+        //}
+        //if (LoadCharacter.freezy && chronoToStart <= 1f)
+        //{
+
+        //    Frenzy();
+        //}
+        //if (LoadCharacter.lucky && chronoToStart <= 1f )
+        //{
+
+        //    Lucky();
+        //}
+
+
+
+
+    }
     
 
    public void Classic()
@@ -289,8 +289,11 @@ public class SphereRotation : MonoBehaviour
 
    public void Freezy()
     {
+       if(currentState == State.freezy)
+        {
+            Debug.Log("RUN FREEZY");
+        }
        
-        Debug.Log("RUN FREEZY");
        
          
         speedVariationCounter += Time.deltaTime;
@@ -337,7 +340,12 @@ public class SphereRotation : MonoBehaviour
 
     public void Lucky()
     {
-        Debug.Log("RUN LUCKY");
+
+        if(currentState == State.luky)
+        {
+            Debug.Log("RUN LUCKY");
+        }
+      
         if (speedVariationCounter >= speedPeriod)
         {
             speedVariationCounter = 0.1f;
