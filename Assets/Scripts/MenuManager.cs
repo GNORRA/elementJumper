@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
 
         playAnim.SetTrigger("PlayButtonAnim");
 
-        playButtonLoadingSound.PlayDelayed(.8f);
+        playButtonLoadingSound.PlayDelayed(1.5f);
       
     }
 

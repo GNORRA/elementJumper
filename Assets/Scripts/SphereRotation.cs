@@ -49,7 +49,7 @@ public class SphereRotation : MonoBehaviour
     float speedPeriod = 3f;
 
     [Header("Speed VariationCounter")]
-    float speedVariationCounter = 0.0f;
+    float speedVariationCounter = 0.1f;
 
 
 
@@ -63,7 +63,8 @@ public class SphereRotation : MonoBehaviour
 
 
     public int canNextStep = 0;
-  
+
+    public int nbreTime;
 
     private void Awake()
     {
@@ -114,8 +115,8 @@ public class SphereRotation : MonoBehaviour
     void Update()
     {
 
-        
 
+       
         // string isClassic = PlayerPrefs.GetString("classic");
         chronoToStart -= 1f * Time.deltaTime;
         timerText.text = chronoToStart.ToString("0");
@@ -126,152 +127,130 @@ public class SphereRotation : MonoBehaviour
             Timer.timer.timerIsRunning = true;
 
             TimerToStart.SetActive(false);
-
-            if (currentState == State.classic && Timer.timer.timeRemaining > 0 && ScoreManager.scoreManager.health > 0)
+            
+            if (currentState == State.classic )
             {
-                 Classic();
-              
-            }
+                Classic();
 
-            if (currentState == State.classic && Timer.timer.timeRemaining == 0)
-            {
-               
-
-                if (ScoreManager.scoreManager.health >= 6)
-                {
-                    //Display Special rating interface
-                    currentState = State.emptyFreezy;
-
-
-                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
-
-                 
-                }
-                else
-                {
-                   // currentState = State.freezy;
-                    //Display standard rating interface
-                }
-
-
-
-
-                // Elevator.elevator.canMoveToTop = true;
-
-            }
-
-
-
-            if (canNextStep == 1 && currentState == State.emptyFreezy)
-            {
-
-                currentState = State.freezy;
-                canNextStep = 0;
-                //Debug.Log("RUN FREEZY");
-                Timer.timer.RealoadTimer();
-
-                Freezy();
-
-            }
-
-
-            if (currentState == State.freezy && Timer.timer.timeRemaining == 0)
-            {
-
-               
-
-                if (ScoreManager.scoreManager.health >= 6)
-                {
-                    currentState = State.emptyLucky;
-                    //Display Special rating interface
-                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
-
-
-                }
-                else
-                {
-                    //Display standard rating interface
-                  //  currentState = State.luky;
-
-
-                }
-
-
-            }
-            if (canNextStep == 1 && currentState == State.emptyLucky)
-            {
-
-                currentState = State.luky;
-                Timer.timer.RealoadTimer();
-                canNextStep = 0;
-                Lucky();
-            }
-
-
-
-            if (currentState == State.luky && Timer.timer.timeRemaining == 0)
-            {
-
-
-                if (ScoreManager.scoreManager.health >= 6)
+              if(Timer.timer.timeRemaining == 0)
                 {
                     currentState = State.emptyClassic;
-                    //Display Special rating interface
-                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
 
+                    if (ScoreManager.scoreManager.health > 0)
+                    {
+                       
+                        GameMenuManager.gameMenuManager.DisplaySpecialRating();
+                        
 
+                    }
+                  
+
+                  
                 }
-                else
-                {
-                    //Display standard rating interface
-                   // currentState = State.emptyClassic;
-
-
-                }
+               
 
 
             }
-
-            if (canNextStep == 1 && currentState == State.emptyClassic)
-            {
-                currentState = State.classic;
-                Timer.timer.RealoadTimer();
-                canNextStep = 0;
-                Classic();
-            }
-
-
-
-
+            
+        }
+        if (canNextStep == 1 && currentState == State.emptyClassic)
+        {
+            canNextStep = 0;
+            currentState = State.freezy;
+            Timer.timer.RealoadTimer();
         }
 
-        //if (LoadCharacter.classic && chronoToStart <=1f)
-        //{
 
-        //    Classic();
-        //}
-        //if (LoadCharacter.freezy && chronoToStart <= 1f)
-        //{
+        if (currentState == State.freezy)
+        {
+            Freezy();
 
-        //    Frenzy();
-        //}
-        //if (LoadCharacter.lucky && chronoToStart <= 1f )
-        //{
+            if (Timer.timer.timeRemaining == 0)
+            {
+                currentState = State.emptyFreezy;
 
-        //    Lucky();
-        //}
+                if(ScoreManager.scoreManager.health > 0)
+                {
+                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
+                }
+                
+            }
+        }
+        if (canNextStep == 1 && currentState == State.emptyFreezy)
+        {
+            canNextStep = 0;
+            currentState = State.luky;
+            Timer.timer.RealoadTimer();
+        }
+
+        if(currentState == State.luky)
+        {
+            Lucky();
+            if(Timer.timer.timeRemaining == 0)
+            {
+                currentState = State.emptyLucky;
+
+                if(ScoreManager.scoreManager.health > 0)
+                {
+                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
+                }
+               
+            }
+        }
+        if(canNextStep == 1 && currentState == State.emptyLucky)
+        {
+            canNextStep = 0;
+            currentState = State.classic;
+            Timer.timer.RealoadTimer();
+        }
 
 
+        if(currentState == State.classic)
+        {
+            Classic();
+            if(Timer.timer.timeRemaining == 0)
+            {
+                currentState = State.emptyClassic;
+                if(ScoreManager.scoreManager.health > 0)
+                {
+                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
+                }
+            }
+        }
+       
 
 
     }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /// <summary>
+    /// METHODE
+    /// </summary>
 
    public void Classic()
-    {
-        if(currentState == State.classic)
         {
-
+      
             Debug.Log("RUN CLASSIC");
 
 
@@ -288,61 +267,57 @@ public class SphereRotation : MonoBehaviour
             transform.RotateAround(target.transform.position, axis, angle);
 
 
-        }
+         }
 
-
-
-    }
-
-   public void Freezy()
+    public void Freezy()
     {
-       if(currentState == State.freezy)
+
+       
+
+        Debug.Log("RUN FREEZY");
+
+        speedVariationCounter += Time.deltaTime;
+
+
+        if (speedVariationCounter >= speedPeriod)
         {
-            Debug.Log("RUN FREEZY");
+            speedVariationCounter = 0.0f;
+            angle += .2f;
+            // Debug.Log("Angle/Speed " + angle);
+        }
+        chrono += Time.deltaTime;
+        chronoIntValue = (int)chrono;
+        if (times == 0)
+        {
+            transform.RotateAround(target.transform.position, axis, angle);
 
-
-            speedVariationCounter += Time.deltaTime;
-
-            if (speedVariationCounter >= speedPeriod)
+            if (chronoIntValue == chronoValue1)
             {
-                speedVariationCounter = 0.0f;
-                angle += .2f;
-                // Debug.Log("Angle/Speed " + angle);
-            }
-            chrono += Time.deltaTime;
-            chronoIntValue = (int)chrono;
-            if (times == 0)
-            {
-                transform.RotateAround(target.transform.position, axis, angle);
-
-                if (chronoIntValue == chronoValue1)
-                {
-                    times = 1;
-                    chrono = 0f;
-
-                }
+                times = 1;
+                chrono = 0f;
 
             }
-            if (times == 1)
+
+        }
+        if (times == 1)
+        {
+            transform.RotateAround(target.transform.position, axis, -angle);
+
+            if (chronoIntValue == chronoValue2)
             {
-                transform.RotateAround(target.transform.position, axis, -angle);
-
-                if (chronoIntValue == chronoValue2)
-                {
-                    times = 0;
-                    chrono = 0f;
-                }
-
-
+                times = 0;
+                chrono = 0f;
             }
+
 
         }
 
 
 
 
-    }
-
+    
+        }
+        
     public void Lucky()
     {
 
