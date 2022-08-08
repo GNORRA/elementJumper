@@ -201,44 +201,44 @@ public class SphereRotation : MonoBehaviour
             if (canNextStep == 1 && currentState == State.emptyLucky)
             {
 
-                 currentState = State.luky;
+                currentState = State.luky;
                 Timer.timer.RealoadTimer();
                 canNextStep = 0;
-                // Lucky();
+                Lucky();
             }
 
 
 
-            //if (currentState == State.emptyLucky  && Timer.timer.timeRemaining == 0)
-            //{
+            if (currentState == State.luky && Timer.timer.timeRemaining == 0)
+            {
 
 
-            //    if (ScoreManager.scoreManager.health >= 6)
-            //    {
-            //        currentState = State.emptyClassic;
-            //        //Display Special rating interface
-            //        GameMenuManager.gameMenuManager.DisplaySpecialRating();
+                if (ScoreManager.scoreManager.health >= 6)
+                {
+                    currentState = State.emptyClassic;
+                    //Display Special rating interface
+                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
 
 
-            //    }
-            //    else
-            //    {
-            //        //Display standard rating interface
-            //        currentState = State.emptyClassic;
+                }
+                else
+                {
+                    //Display standard rating interface
+                   // currentState = State.emptyClassic;
 
 
-            //    }
+                }
 
 
-            //}
+            }
 
-            //if(canNextStep == 1 && currentState == State.emptyClassic)
-            //{
-            //   // currentState = State.classic;
-            //    Timer.timer.RealoadTimer();
-            //    Debug.Log("RUN CLASSIC");
-            //    Classic();
-            //}
+            if (canNextStep == 1 && currentState == State.emptyClassic)
+            {
+                currentState = State.classic;
+                Timer.timer.RealoadTimer();
+                canNextStep = 0;
+                Classic();
+            }
 
 
 
@@ -269,22 +269,29 @@ public class SphereRotation : MonoBehaviour
 
    public void Classic()
     {
-        
-        speedVariationCounter += Time.deltaTime;
-       // Debug.Log("SVCounter " + speedVariationCounter);
-
-        if (speedVariationCounter >= speedPeriod)
+        if(currentState == State.classic)
         {
-            speedVariationCounter = 0.0f;
-            angle += .2f;
-           // Debug.Log("Angle/Speed " + angle);
+
+            Debug.Log("RUN CLASSIC");
+
+
+            speedVariationCounter += Time.deltaTime;
+            // Debug.Log("SVCounter " + speedVariationCounter);
+
+            if (speedVariationCounter >= speedPeriod)
+            {
+                speedVariationCounter = 0.0f;
+                angle += .2f;
+                // Debug.Log("Angle/Speed " + angle);
+            }
+
+            transform.RotateAround(target.transform.position, axis, angle);
+
+
         }
 
-        transform.RotateAround(target.transform.position, axis, angle);
 
-       
 
-       
     }
 
    public void Freezy()
@@ -292,49 +299,47 @@ public class SphereRotation : MonoBehaviour
        if(currentState == State.freezy)
         {
             Debug.Log("RUN FREEZY");
-        }
-       
-       
-         
-        speedVariationCounter += Time.deltaTime;
 
-        if (speedVariationCounter >= speedPeriod)
-        {
-            speedVariationCounter = 0.0f;
-            angle += .2f;
-            // Debug.Log("Angle/Speed " + angle);
-        }
-        chrono += Time.deltaTime;
-        chronoIntValue = (int)chrono;
-        if (times == 0)
-        {
-            transform.RotateAround(target.transform.position, axis, angle);
 
-            if (chronoIntValue == chronoValue1)
+            speedVariationCounter += Time.deltaTime;
+
+            if (speedVariationCounter >= speedPeriod)
             {
-                times = 1;
-                chrono = 0f;
+                speedVariationCounter = 0.0f;
+                angle += .2f;
+                // Debug.Log("Angle/Speed " + angle);
+            }
+            chrono += Time.deltaTime;
+            chronoIntValue = (int)chrono;
+            if (times == 0)
+            {
+                transform.RotateAround(target.transform.position, axis, angle);
+
+                if (chronoIntValue == chronoValue1)
+                {
+                    times = 1;
+                    chrono = 0f;
+
+                }
+
+            }
+            if (times == 1)
+            {
+                transform.RotateAround(target.transform.position, axis, -angle);
+
+                if (chronoIntValue == chronoValue2)
+                {
+                    times = 0;
+                    chrono = 0f;
+                }
+
 
             }
 
         }
-        if (times == 1)
-        {
-            transform.RotateAround(target.transform.position, axis, -angle);
-
-            if (chronoIntValue == chronoValue2)
-            {
-                times = 0;
-                chrono = 0f;
-            }
 
 
-        }
 
-        if(Timer.timer.timeRemaining == 0)
-        {
-            Debug.Log("RUN LUCKY");
-        }
 
     }
 
@@ -344,23 +349,25 @@ public class SphereRotation : MonoBehaviour
         if(currentState == State.luky)
         {
             Debug.Log("RUN LUCKY");
-        }
-      
-        if (speedVariationCounter >= speedPeriod)
-        {
-            speedVariationCounter = 0.1f;
-            angle += .2f;
-            // Debug.Log("Angle/Speed " + angle);
-        }
-        transform.RotateAround(target.transform.position, axis, angle);
-        robeTimer += Time.deltaTime;
-        intRobeTimer = (int)robeTimer;
-        if (intRobeTimer == robeTimerValue && Completed == false)
-        {
-            Quaternion spawnRotation = Quaternion.Euler(0, 0, 90);
-            Instantiate(robeObject, new Vector3(-1.8f, 1.94f, 0.56f), spawnRotation);
-            Completed = true;
-            robeTimer = 0;
+
+            if (speedVariationCounter >= speedPeriod)
+            {
+                speedVariationCounter = 0.1f;
+                angle += .2f;
+                // Debug.Log("Angle/Speed " + angle);
+            }
+            transform.RotateAround(target.transform.position, axis, angle);
+            robeTimer += Time.deltaTime;
+            intRobeTimer = (int)robeTimer;
+            if (intRobeTimer == robeTimerValue && Completed == false)
+            {
+                Quaternion spawnRotation = Quaternion.Euler(0, 0, 90);
+                Instantiate(robeObject, new Vector3(-1.8f, 1.94f, 0.56f), spawnRotation);
+                Completed = true;
+                robeTimer = 0;
+            }
         }
     }
+      
+        
 }

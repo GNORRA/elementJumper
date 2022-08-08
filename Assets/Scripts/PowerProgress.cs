@@ -48,7 +48,7 @@ public class PowerProgress : MonoBehaviour
         }
         else
         {
-            CurrentValue += 0.0050f * Time.deltaTime;
+            CurrentValue += 0.0100f * Time.deltaTime;
         }
     }
 }
