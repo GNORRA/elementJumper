@@ -45,6 +45,6 @@ public class Timer : MonoBehaviour
    public void RealoadTimer()
     {
         timerIsRunning = true;
-        timeRemaining = 15;
+        timeRemaining = 30;
     }
 }

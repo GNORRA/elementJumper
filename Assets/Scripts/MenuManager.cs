@@ -28,9 +28,7 @@ public class MenuManager : MonoBehaviour
     {
         gameStat = FindObjectOfType<GameObject>();
 
-      
-
-
+   
         playAnim.SetTrigger("PlayButtonAnim");
 
         playButtonLoadingSound.PlayDelayed(1.5f);

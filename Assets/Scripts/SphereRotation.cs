@@ -197,7 +197,7 @@ public class SphereRotation : MonoBehaviour
                
             }
         }
-        if(canNextStep == 1 && currentState == State.emptyLucky)
+        if (canNextStep == 1 && currentState == State.emptyLucky)
         {
             canNextStep = 0;
             currentState = State.classic;
@@ -205,19 +205,19 @@ public class SphereRotation : MonoBehaviour
         }
 
 
-        if(currentState == State.classic)
-        {
-            Classic();
-            if(Timer.timer.timeRemaining == 0)
-            {
-                currentState = State.emptyClassic;
-                if(ScoreManager.scoreManager.health > 0)
-                {
-                    GameMenuManager.gameMenuManager.DisplaySpecialRating();
-                }
-            }
-        }
-       
+        //if(currentState == State.classic)
+        //{
+        //    Classic();
+        //    if(Timer.timer.timeRemaining == 0)
+        //    {
+        //        currentState = State.emptyClassic;
+        //        if(ScoreManager.scoreManager.health > 0)
+        //        {
+        //            GameMenuManager.gameMenuManager.DisplaySpecialRating();
+        //        }
+        //    }
+        //}
+
 
 
     }
