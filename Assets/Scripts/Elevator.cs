@@ -6,7 +6,7 @@ public class Elevator : MonoBehaviour
 {
     public static Elevator elevator;
     public float speed;
-    public bool canMoveToTop;
+    public bool canMoveToTop = false;
 
     // Start is called before the first frame update
 

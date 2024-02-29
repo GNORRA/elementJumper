@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
 
 
     public int health;
-    public int colliderValue;
+    public static int colliderValue;
    [SerializeField] public float coin;
     float finalCoin;
     public int score;

@@ -42,9 +42,9 @@ public class ropeScripts : MonoBehaviour
 
             //INCREASE GRAVITY to stimulate tired..
 
-            GameObject.FindWithTag("Player").GetComponent<Rigidbody>().mass += 0.20f;
+          //  GameObject.FindWithTag("Player").GetComponent<Rigidbody>().mass += 0.20f;
 
-            CameraRotator.cameraRotator.CheckAnimCameraFaile();
+           // CameraRotator.cameraRotator.CheckAnimCameraFaile();
             GameObject.FindWithTag("RopeHitSound").GetComponent<AudioSource>().Play();
 
         }
